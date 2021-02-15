@@ -7,19 +7,19 @@ server.use(express.json())
 
 const users = ['Higor', 'Rafael', 'Leonardo', 'Lucas', 'Gilberto']
 
-// All users
+// All Users
 server.get('/users/all', (request, response) => {
     return response.json(users)
 })
 
-// Only users
+// Only Users
 server.get('/users/:index', (request, response) => {
     const { index } = request.params
 
     response.json(users[index])
 })
 
-// Create user
+// Create User
 server.post('/users/new', (request, response) => {
     const { name } = request.body
 
@@ -38,6 +38,22 @@ server.post('/users/new', (request, response) => {
             message: `User: ${name}, created success !`
         }
     )
+})
+
+// Update User
+server.put('/users/update/:index', (request, response) => {
+    const { index } = request.params
+    const { name } = request.body
+
+    const oldName = users[index]
+    const newName = users[index] = name
+
+    return response.json(
+        {
+            message:`The name ${oldName} was changed to ${newName} `
+        }
+    )
+
 })
 
 server.listen('3333', () => {
