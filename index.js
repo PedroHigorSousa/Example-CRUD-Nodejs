@@ -50,11 +50,26 @@ server.put('/users/update/:index', (request, response) => {
 
     return response.json(
         {
-            message:`The name ${oldName} was changed to ${newName} `
+            message: `The name ${oldName} was changed to ${newName} `
         }
     )
 
 })
+
+// Delete User
+server.delete('/users/remove/:index', (request, response) => {
+    const { index } = request.params
+    const user = users[index]
+
+    users.splice(index, 1)
+
+    return response.json(
+        {
+            message: `User ${user} was successfully deleted`
+        }
+    )
+})
+
 
 server.listen('3333', () => {
     console.log('Server is running  :')
